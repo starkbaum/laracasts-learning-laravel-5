@@ -14,6 +14,16 @@ class PagesController extends Controller
         $first = 'Stefan';
         $last = 'Starkbaum';
 
-        return view('pages.about', compact('first', 'last'));
+        $people = [
+            'Taylor Otwell',
+            'Dayle Rees',
+            'Eric Barnes'
+        ];
+
+        return view('pages.about', compact('first', 'last', 'people'));
+    }
+
+    public function contact() {
+        return view('pages.contact');
     }
 }
