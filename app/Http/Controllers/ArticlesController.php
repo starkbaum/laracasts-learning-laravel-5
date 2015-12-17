@@ -8,7 +8,7 @@ use App\Http\Requests\CreateArticleRequest;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\Auth;
 
 
 class ArticlesController extends Controller
@@ -35,7 +35,9 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request) {
 
-        Article::create($request->all());
+        $article = new Article($request->all());
+
+        Auth::user()->articles()->save($article);
 
         return redirect('articles');
     }
