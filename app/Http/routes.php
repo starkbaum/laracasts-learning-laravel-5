@@ -15,3 +15,7 @@ Route::controllers([
 Route::get('foo', ['middleware' => 'manager', function() {
     return 'this page may only be viewed by managers';
 }]);
+
+Route::get('/', function() {
+    return 'Home Page';
+});
