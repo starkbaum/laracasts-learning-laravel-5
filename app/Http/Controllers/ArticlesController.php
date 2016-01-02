@@ -43,7 +43,8 @@ class ArticlesController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create() {
-        return view('articles.create');
+        $tags = \App\Tag::lists('name', 'id');
+        return view('articles.create', compact('tags'));
     }
 
     /**
@@ -56,7 +57,12 @@ class ArticlesController extends Controller
 
         $article = new Article($request->all());
 
+
         Auth::user()->articles()->save($article);
+
+        $article->tags()->attach($request->input('tag_list'));
+
+
 
         return redirect('articles')->with([
             'flash_message'             => 'The Article has been published!',
@@ -70,7 +76,8 @@ class ArticlesController extends Controller
      * @internal param $id
      */
     public function edit(Article $article) {
-        return view('articles.edit', compact('article'));
+        $tags = \App\Tag::lists('name', 'id');
+        return view('articles.edit', compact('article', 'tags'));
     }
 
     /**
